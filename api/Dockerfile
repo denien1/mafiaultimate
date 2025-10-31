@@ -1,10 +1,18 @@
+# ---------- build ----------
+FROM node:20-alpine AS build
+WORKDIR /app
+COPY api/package*.json ./
+RUN npm ci || npm i
+COPY api/ .
+RUN npm run build
+
+# ---------- runtime ----------
 FROM node:20-alpine
 WORKDIR /app
-COPY package.json package-lock.json* .npmrc* ./
-RUN npm i || true
-RUN npx -y @nestjs/cli new tmp --skip-git --package-manager npm >/dev/null 2>&1 || true
-COPY . .
-RUN npm run build
+ENV NODE_ENV=production
+COPY --from=build /app/dist ./dist
+COPY --from=build /app/package*.json ./
+RUN npm ci --omit=dev || npm i --omit=dev
 ENV PORT=4000
 EXPOSE 4000
-CMD ["npm","run","start"]
+CMD ["node","dist/main.js"]
