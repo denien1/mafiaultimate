@@ -1,0 +1,14 @@
+{
+  "services": [
+    {
+      "name": "mafia-api",
+      "startCommand": "node dist/main.js",
+      "buildCommand": "npm i && npm run build",
+      "path": "api"
+    }
+  ],
+  "plugins": [
+    "postgresql",
+    "redis"
+  ]
+}

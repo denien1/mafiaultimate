@@ -1,0 +1,19 @@
+id: halloween_raid
+name: Halloween Raid
+starts_at: 2025-10-25T00:00:00Z
+ends_at: 2025-11-05T00:00:00Z
+jobs:
+  - id: 9001
+    name: Smash Pumpkins
+    energy_cost: 2
+    reward_xp: 3
+    reward_cash: 30
+    loot_table: pumpkins_lt
+loot_tables:
+  pumpkins_lt:
+    - item_id: 1
+      weight: 60
+    - item_id: 2
+      weight: 30
+    - item_id: 3
+      weight: 10
